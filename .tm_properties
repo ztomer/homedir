@@ -10,8 +10,9 @@ include = "{$include,.tm_properties,.htaccess,.gitignore}"
 
 # Hide log, vendor and tmp directories from search popups.
 #
-excludeInFileChooser  = "{$excludeInFileChooser,log,vendor,tmp}" 
-excludeInFolderSearch = "{$excludeInFolderSearch,log,vendor,tmp}" 
+myExtraExcludes = "log,vendor,tmp"
+excludeInFileChooser  = "{$excludeInFileChooser,$myExtraExcludes}" 
+excludeInFolderSearch = "{$excludeInFolderSearch,$myExtraExcludes}" 
 
 # If you also want to hide them from your project manager pane, add
 # the following line to your project's local .tm_properties.
