@@ -14,6 +14,11 @@
 [push]
   default = current
 
+# Include a summary of changes in merge commit messages.
+#
+[merge]
+  summary = true
+
 # Color configuration.
 #
 [color]
