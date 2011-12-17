@@ -1,22 +1,47 @@
-# ~/.bash_profile
-# 
-# anything in this file is executed only at login, anything to happen in
-# every shell should be placed in the bashrc file instead
+#!/bin/bash
 
-source ~/etc/bash/run
+# Load RVM, if you are using it
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
-#httpload() {
-#    STAMP=`date +"%s"`;
-#    echo "http://$1" > /tmp/$STAMP.http_load_temp_file
-#    http_load -parallel $2 -seconds $3 /tmp/$STAMP.http_load_temp_file
-#    rm -f /tmp/$STAMP.http_load_temp_file
-#}
+# Add rvm gems and nginx to the path
+export PATH=$PATH:~/hmansify/bin:~/.gem/ruby/1.8/bin:/opt/nginx/sbin
 
-##
-# Your previous /Users/Carlo/.bash_profile file was backed up as /Users/Carlo/.bash_profile.macports-saved_2009-06-18_at_17:17:05
-##
+# Path to the bash it configuration
+export BASH=$HOME/.bash_it
 
-# MacPorts Installer addition on 2009-06-18_at_17:17:05: adding an appropriate MANPATH variable for use with MacPorts.
-export MANPATH=/opt/local/share/man:$MANPATH
-# Finished adapting your MANPATH environment variable for use with MacPorts.
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+export BASH_THEME='bobby'
 
+# Your place for hosting Git repos. I use this for private repos.
+export GIT_HOSTING='git@git.domain.com'
+
+# Set my editor and git editor
+export EDITOR="/usr/bin/mate -w"
+export GIT_EDITOR='/usr/bin/mate -w'
+
+# Set the path nginx
+export NGINX_PATH='/opt/nginx'
+
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
+
+# Change this to your console based IRC client of choice.
+export IRC_CLIENT='irssi'
+
+# Set this to the command you use for todo.txt-cli
+export TODO="t"
+
+# Set vcprompt executable path for scm advance info in prompt (demula theme)
+# https://github.com/xvzf/vcprompt
+#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+
+# Load Bash It
+[ -d "$BASH" ] && source $BASH/bash_it.sh
+
+# My aliases
+alias be="bundle exec"
+
+# Initialize rbfu, if available
+[ -d "$HOME/.rbfu" ] && eval "$($HOME/.rbfu/init.sh --cd-hack)"

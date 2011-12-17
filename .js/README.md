@@ -1,1 +1,0 @@
-See http://defunkt.io/dotjs/

@@ -1,26 +1,53 @@
+# User information. Replace with your own data, obviously.
+#
+[user]
+  name = Hendrik Mans
+  email = hendrik@mans.de
+
+# Automatically track branches with the same name
+#
+[branch]
+  autosetupmerge = true
+
+# Push the current branch as the default behaviour
+#
+[push]
+  default = current
+
+# Color configuration.
+#
 [color]
   ui = auto
-[user]
-	name = Carlo Zottmann
-	email = carlo@municode.de
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+# Whitespace handliong
+#
+[core]
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+# Useful aliases
+#
 [alias]
   st = status
   ci = commit
   br = branch
   co = checkout
   df = diff
-  dt = difftool
+  dc = diff --cached
   lg = log -p
-	wtf = !git-wtf
-	shlog = "log --pretty=\"%Cgreen%h%Creset – %Cred%ci%Creset – %s (%Cred%an%Creset)\""
-  fshow = ! sh -c 'git show --pretty="format:" --name-only $1 | grep -v "^$" | uniq' -
-  vim   = ! sh -c 'vim `git fshow $1`' -
-  mate  = ! sh -c 'mate `git fshow $1`' -
-[core]
-	autocrlf = input
-[difftool "Kaleidoscope"]
-	cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
-[difftool]
-	prompt = false
-[diff]
-	tool = Kaleidoscope
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
