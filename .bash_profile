@@ -13,29 +13,12 @@ export BASH=$HOME/.bash_it
 # location /.bash_it/themes/
 export BASH_THEME='bobby'
 
-# Your place for hosting Git repos. I use this for private repos.
-export GIT_HOSTING='git@git.domain.com'
-
 # Set my editor and git editor
-export EDITOR="/usr/bin/mate -w"
-export GIT_EDITOR='/usr/bin/mate -w'
-
-# Set the path nginx
-export NGINX_PATH='/opt/nginx'
+export EDITOR="/usr/bin/env mate -w"
+export GIT_EDITOR='/usr/bin/env mate -w'
 
 # Don't check mail when opening terminal.
 unset MAILCHECK
-
-
-# Change this to your console based IRC client of choice.
-export IRC_CLIENT='irssi'
-
-# Set this to the command you use for todo.txt-cli
-export TODO="t"
-
-# Set vcprompt executable path for scm advance info in prompt (demula theme)
-# https://github.com/xvzf/vcprompt
-#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
 # Load Bash It
 [ -d "$BASH" ] && source $BASH/bash_it.sh
@@ -44,4 +27,9 @@ export TODO="t"
 alias be="bundle exec"
 
 # Initialize rbfu, if available
-[ -d "$HOME/.rbfu" ] && eval "$($HOME/.rbfu/init.sh --cd-hack)"
+[ -d "$HOME/.rbfu" ] && eval "$($HOME/.rbfu/init.sh --auto)"
+
+# Add bash completion for homebrew installed packages
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
+fi
