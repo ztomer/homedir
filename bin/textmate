@@ -1,2 +1,0 @@
-# pass files from visual to textmate
-mate -w "$@"
