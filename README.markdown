@@ -5,3 +5,9 @@ Files from my home directory (work, laptop and shared hosting). Forked from
 [Brad](http://github.com/bradleywright/homedir/tree) who forked it from
 [Norm](http://github.com/norm/homedir/tree).
 Wow, this is getting confusing.
+
+# Installation
+
+    git submodule init
+	git submodule update
+	./install.sh
