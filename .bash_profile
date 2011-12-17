@@ -4,7 +4,7 @@
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
 # Expand PATH
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # Path to the bash it configuration
 export BASH=$HOME/.bash_it
