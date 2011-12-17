@@ -19,6 +19,8 @@ install () {
   run ln -s "$SRC" "$DEST"
 }
 
-for F in bin .inputrc .irbrc .bash_profile .gitconfig ; do
+shopt -s dotglob extglob
+
+for F in !(README.markdown|install.sh|.git|.DS_Store); do
   install ${F}
 done
