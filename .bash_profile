@@ -26,10 +26,10 @@ unset MAILCHECK
 # My aliases
 alias be="bundle exec"
 
-# Initialize rbfu, if available
-[ -d "$HOME/.rbfu" ] && eval "$($HOME/.rbfu/init.sh --auto)"
-
 # Add bash completion for homebrew installed packages
 if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
+
+# Initialize rbfu, if available
+[ -d "$HOME/.rbfu" ] && eval "$($HOME/.rbfu/init.sh --auto)"
