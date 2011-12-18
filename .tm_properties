@@ -5,8 +5,9 @@ fontSize         = 12
 
 # Extra files to include
 #
-fileBrowserGlob  = "{*,.tm_properties,.htaccess,.gitignore}"
-include = "{$include,.tm_properties,.htaccess,.gitignore}"
+myExtraIncludes = ".tm_properties,.htaccess,.gitignore"
+fileBrowserGlob  = "{*,$myExtraIncludes}"
+include = "{$include,$myExtraIncludes}"
 
 # Hide log, vendor and tmp directories from search popups.
 #
@@ -25,14 +26,18 @@ excludeInFolderSearch = "{$excludeInFolderSearch,$myExtraExcludes}"
 TM_HG  = "/opt/local/bin/hg"
 TM_GIT = "/opt/local/bin/git"
 
-[ text ]
-softWrap         = true
+# Default editing configuration
+#
+softWrap         = false
 softTabs         = true
 tabSize          = 4
+
+# File type specific configuration
+#
+[ text ]
 showInvisibles   = true
 
 [ .git/COMMIT_EDITMSG ]
-softWrap         = true
 spellChecking    = true
 spellingLanguage = 'en'
 
