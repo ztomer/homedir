@@ -31,5 +31,5 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
 
-# Initialize rbfu, if available
-[ $(which rbfu) ] && eval "$(rbfu --init --auto)"
+# Initialize rbfu
+eval "$(rbfu --init --auto)"
