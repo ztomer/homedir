@@ -32,4 +32,4 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 fi
 
 # Initialize rbfu, if available
-[ -d "$HOME/.rbfu" ] && eval "$($HOME/.rbfu/init.sh --auto)"
+[ -f "`which rbfu`" ] && eval "$(rbfu --init --auto)"
