@@ -31,5 +31,8 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
 
+# Add path to development version of rbfu
+export PATH="$HOME/src/rbfu/bin:$PATH"
+
 # Initialize rbfu
 eval "$(rbfu --init --auto)"
