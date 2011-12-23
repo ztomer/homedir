@@ -14,8 +14,8 @@ export BASH=$HOME/.bash_it
 export BASH_THEME='bobby'
 
 # Set my editor and git editor
-export EDITOR="/usr/bin/env mate -w"
-export GIT_EDITOR='/usr/bin/env mate -w'
+export EDITOR="/usr/bin/env subl"
+export GIT_EDITOR='/usr/bin/env subl -w -n'
 
 # Don't check mail when opening terminal.
 unset MAILCHECK
