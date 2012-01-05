@@ -17,6 +17,9 @@ export BASH_THEME='bobby'
 export EDITOR="/usr/bin/env subl"
 export GIT_EDITOR='/usr/bin/env subl -w -n'
 
+# Alias mate to subl :-)
+alias mate=subl
+
 # Don't check mail when opening terminal.
 unset MAILCHECK
 
