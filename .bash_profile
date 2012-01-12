@@ -5,6 +5,7 @@
 
 # Expand PATH
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
 
 # Path to the bash it configuration
 export BASH=$HOME/.bash_it
