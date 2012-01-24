@@ -12,7 +12,7 @@ export BASH=$HOME/.bash_it
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
-export BASH_THEME='bobby'
+export BASH_THEME='envy'
 
 # Set my editor and git editor
 export EDITOR="/usr/bin/env subl"
