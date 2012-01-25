@@ -40,3 +40,6 @@ export PATH="$HOME/src/rbfu/bin:$PATH"
 
 # Initialize rbfu
 eval "$(rbfu --init --auto)"
+
+# Execute local .bash_profile if availab;e
+[ -e "$HOME/.bash_profile.local" ] && source "$HOME/.bash_profile.local"
