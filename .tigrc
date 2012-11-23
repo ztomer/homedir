@@ -1,6 +1,6 @@
 set author-width = 15
 set show-author = yes
-set show-date = relative
+# set show-date = relative
 set show-refs = yes
 set show-rev-graph = yes
 set line-graphics = yes
