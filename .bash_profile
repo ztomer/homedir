@@ -43,3 +43,6 @@ eval "$(rbfu --init --auto)"
 
 # Execute local .bash_profile if availab;e
 [ -e "$HOME/.bash_profile.local" ] && source "$HOME/.bash_profile.local"
+
+# Initialize grc
+source "`brew --prefix grc`/etc/grc.bashrc"
