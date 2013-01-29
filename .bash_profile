@@ -18,6 +18,10 @@ export BASH_THEME='envy'
 export EDITOR="/usr/bin/env subl"
 export GIT_EDITOR='/usr/bin/env subl -w -n'
 
+# I like colors.
+export CLICOLOR=1
+export GREP_OPTIONS='--color=auto'
+
 # Alias mate to subl :-)
 alias mate=subl
 
