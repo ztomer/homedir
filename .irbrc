@@ -7,5 +7,5 @@ begin
   Wirble.init
   Wirble.colorize
 rescue LoadError => err
-  $stderr.puts "Couldn't load Wirble: #{err}"
+  $stderr.puts "Couldn't load Wirble. You may need to add it to your project's Gemfile."
 end
