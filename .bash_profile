@@ -39,14 +39,9 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
 
-# Add path to development version of rbfu
-export PATH="$HOME/src/rbfu/bin:$PATH"
-
-# Initialize rbfu
-eval "$(rbfu --init --auto)"
+# Initialize chruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
 # Execute local .bash_profile if availab;e
 [ -e "$HOME/.bash_profile.local" ] && source "$HOME/.bash_profile.local"
-
-# Initialize grc
-source "`brew --prefix grc`/etc/grc.bashrc"
