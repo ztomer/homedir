@@ -47,5 +47,5 @@ fi
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 
-# Execute local .bash_profile if availab;e
+# Execute local .bash_profile if available
 [ -e "$HOME/.bash_profile.local" ] && source "$HOME/.bash_profile.local"
