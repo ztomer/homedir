@@ -25,9 +25,6 @@ export GIT_EDITOR='/usr/bin/env subl -w -n'
 export CLICOLOR=1
 export GREP_OPTIONS='--color=auto'
 
-# Alias mate to subl :-)
-alias mate=subl
-
 # Don't check mail when opening terminal.
 unset MAILCHECK
 
