@@ -8,6 +8,14 @@ Wow, this is getting confusing.
 
 ## Installation
 
+**Please note** that this is not really meant as a software package
+that you install on your own system(s) to gain certain features (or not), but
+rather as a piece of reference (and, of course, for my own use).
+
+If you do want to use it anyway, I recommend creating a fork before making
+any significant changes. If you're crazy enough to use my stuff as-is, this
+is how to do it:
+
     git clone git://github.com/hmans/homedir.git
 	  cd homedir
 	  ./install.sh
