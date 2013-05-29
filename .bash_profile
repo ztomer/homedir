@@ -7,9 +7,6 @@ export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
 # Add NPM-installed bins to PATH
 export PATH=/usr/local/share/npm/bin:$PATH
 
-# Path to the bash it configuration
-export BASH=$HOME/.bash_it
-
 # Configure prompt. (via http://neverstopbuilding.net/gitpro/)
 MAGENTA="\[\033[0;35m\]"
 YELLOW="\[\033[0;33m\]"
@@ -37,9 +34,6 @@ export GREP_OPTIONS='--color=auto'
 
 # Don't check mail when opening terminal.
 unset MAILCHECK
-
-# Load Bash It
-[ -d "$BASH" ] && source $BASH/bash_it.sh
 
 # My aliases
 alias be="bundle exec"
