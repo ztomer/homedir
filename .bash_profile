@@ -22,7 +22,7 @@ CYAN="\[\033[0;36m\]"
 GREEN="\[\033[0;32m\]"
 GIT_PS1_SHOWDIRTYSTATE=true
 
-export PS1=$GREEN"\u@\h"'$(
+export PS1=$GREEN"★ \u@\h"'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
     then echo "'$YELLOW'"$(__git_ps1 " (%s)")
     elif [[ $(__git_ps1) =~ \+\)$ ]]
