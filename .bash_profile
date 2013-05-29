@@ -7,6 +7,9 @@
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
 
+# Add NPM-installed bins to PATH
+export PATH=/usr/local/share/npm/bin:$PATH
+
 # Path to the bash it configuration
 export BASH=$HOME/.bash_it
 
