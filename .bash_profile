@@ -37,6 +37,7 @@ unset MAILCHECK
 
 # My aliases
 alias be="bundle exec"
+alias ta="tmux attach-session"
 
 # Add bash completion for homebrew installed packages
 if [ -f `brew --prefix`/etc/bash_completion ]; then
