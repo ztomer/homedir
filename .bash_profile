@@ -24,10 +24,6 @@ export PS1=$GREEN"★ \u@\h"'$(
     else echo "'$CYAN'"$(__git_ps1 " (%s)")
     fi)'$BLUE" \w"$LIGHT_GRAY": "
 
-# Set my editor and git editor
-export EDITOR="/usr/bin/env subl"
-export GIT_EDITOR='/usr/bin/env subl -w -n'
-
 # I like colors.
 export CLICOLOR=1
 export GREP_OPTIONS='--color=auto'
@@ -39,14 +35,9 @@ unset MAILCHECK
 alias be="bundle exec"
 alias ta="tmux attach-session"
 
-# Add bash completion for homebrew installed packages
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
-fi
-
-# Initialize chruby
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+# Run OS specific profile
+FILENAME=~/.bash_profile-$(uname)
+[ -f $FILENAME ] && source $FILENAME
 
 # Execute local .bash_profile if available
 [ -e "$HOME/.bash_profile.local" ] && source "$HOME/.bash_profile.local"
