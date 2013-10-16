@@ -14,6 +14,7 @@ BLUE="\[\033[34m\]"
 LIGHT_GRAY="\[\033[0;37m\]"
 CYAN="\[\033[0;36m\]"
 GREEN="\[\033[0;32m\]"
+RESET="\e[m"
 GIT_PS1_SHOWDIRTYSTATE=true
 
 export PS1=$GREEN"★ \u@\h"'$(
@@ -22,7 +23,7 @@ export PS1=$GREEN"★ \u@\h"'$(
     elif [[ $(__git_ps1) =~ \+\)$ ]]
     then echo "'$MAGENTA'"$(__git_ps1 " (%s)")
     else echo "'$CYAN'"$(__git_ps1 " (%s)")
-    fi)'$BLUE" \w"$LIGHT_GRAY": "
+    fi)'$BLUE" \w"$RESET": "
 
 # I like colors.
 export CLICOLOR=1
