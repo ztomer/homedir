@@ -14,7 +14,7 @@ BLUE="\[\033[34m\]"
 LIGHT_GRAY="\[\033[0;37m\]"
 CYAN="\[\033[0;36m\]"
 GREEN="\[\033[0;32m\]"
-RESET="\e[m"
+RESET="\[\e[m\]"
 GIT_PS1_SHOWDIRTYSTATE=true
 
 export PS1=$GREEN"★ \u@\h"'$(
