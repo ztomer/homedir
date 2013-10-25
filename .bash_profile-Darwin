@@ -7,7 +7,7 @@ export EDITOR="/usr/bin/env subl"
 export GIT_EDITOR='/usr/bin/env subl -w -n'
 
 # Eh.
-export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+# export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 
 # Add bash completion for homebrew installed packages
 if [ -f `brew --prefix`/etc/bash_completion ]; then
