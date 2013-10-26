@@ -9,6 +9,10 @@ Bundle 'kien/ctrlp.vim'
 set number
 syntax enable
 
+" Highlight current line
+:hi CursorLine   cterm=NONE ctermbg=darkgray ctermfg=white guibg=darkgray guifg=white
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
 " Set to auto read when a file is changed from the outside
 set autoread
 
