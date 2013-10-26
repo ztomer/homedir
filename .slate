@@ -1,19 +1,7 @@
-# This is the default .slate file.
-# If no ~/.slate file exists this is the file that will be used.
-
+# Configuration
 config defaultToCurrentScreen true
 config nudgePercentOf screenSize
 config resizePercentOf screenSize
-
-# Resize Bindings
-# bind right:alt       resize +10% +0
-# bind left:alt        resize -10% +0
-# bind up:alt          resize +0   -10%
-# bind down:alt        resize +0   +10%
-# bind right:ctrl;alt  resize -10% +0 bottom-right
-# bind left:ctrl;alt   resize +10% +0 bottom-right
-# bind up:ctrl;alt     resize +0   +10% bottom-right
-# bind down:ctrl;alt   resize +0   -10% bottom-right
 
 # Push Bindings
 bind right:ctrl;cmd;alt  push right bar-resize:screenSizeX/2
@@ -21,6 +9,26 @@ bind left:ctrl;cmd;alt   push left  bar-resize:screenSizeX/2
 bind up:ctrl;cmd;alt     push up    bar-resize:screenSizeY/2
 bind down:ctrl;cmd;alt   push down  bar-resize:screenSizeY/2
 bind space:ctrl;cmd;alt  push up bar-resize:screenSizeY
+
+# Hints
+bind space:shift;alt;cmd hint 1234567890
+
+# Development layout
+alias padding 10
+alias row     screenSizeY/3
+alias column  screenSizeX/2
+
+alias topleft     move screenOriginX+${padding};screenOriginY+${padding}                   ${column}-${padding}*2;${row}*2-${padding}*2
+alias bottomleft  move screenOriginX+${padding};screenOriginY+${row}*2+${padding}          ${column}-${padding}*2;${row}-${padding}*2
+alias right       move screenOriginX+${column}+${padding};screenOriginY+${padding}         ${column}-${padding}*2;screenSizeY-${padding}*2
+alias center      move screenOriginX+screenSizeX/4;screenOriginY+screenSizeY/4             screenSizeX/2;screenSizeY/2
+layout dev 'Sublime Text'  ${topleft}
+layout dev 'Terminal'      ${bottomleft}
+layout dev 'Google Chrome' ${right}
+layout dev 'GitX'          ${center}
+
+# Layout triggers
+bind a:ctrl;cmd;alt layout dev
 
 # Nudge Bindings
 # bind right:shift;alt nudge +10% +0
