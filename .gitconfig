@@ -19,6 +19,7 @@
 #
 [merge]
   summary = true
+	tool = opendiff
 
 # Color configuration.
 #
