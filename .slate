@@ -3,13 +3,6 @@ config defaultToCurrentScreen true
 config nudgePercentOf screenSize
 config resizePercentOf screenSize
 
-# Push Bindings
-bind right:ctrl;cmd;alt  push right bar-resize:screenSizeX/2
-bind left:ctrl;cmd;alt   push left  bar-resize:screenSizeX/2
-bind up:ctrl;cmd;alt     push up    bar-resize:screenSizeY/2
-bind down:ctrl;cmd;alt   push down  bar-resize:screenSizeY/2
-bind space:ctrl;cmd;alt  push up bar-resize:screenSizeY
-
 # Hints
 bind space:shift;alt;cmd hint 1234567890
 
@@ -18,6 +11,8 @@ alias padding 5
 alias row     screenSizeY/3
 alias column  screenSizeX/2
 
+alias top         move screenOriginX+${padding};screenOriginY+${padding}                   ${column}*2-${padding}*2;screenSizeY/2-${padding}*2
+alias bottom      move screenOriginX+${padding};screenOriginY+screenSizeY/2+${padding}     ${column}*2-${padding}*2;screenSizeY/2-${padding}*2
 alias topleft     move screenOriginX+${padding};screenOriginY+${padding}                   ${column}-${padding}*2;${row}*2-${padding}*2
 alias bottomleft  move screenOriginX+${padding};screenOriginY+${row}*2+${padding}          ${column}-${padding}*2;${row}-${padding}*2
 alias left        move screenOriginX+${padding};screenOriginY+${padding}                   ${column}-${padding}*2;screenSizeY-${padding}*2
@@ -37,6 +32,13 @@ layout dev2 'GitX'          ${center}
 # Layout triggers
 bind 1:ctrl;cmd;alt layout dev1
 bind 2:ctrl;cmd;alt layout dev2
+
+# Push Bindings
+bind right:ctrl;cmd;alt  ${right}
+bind left:ctrl;cmd;alt   ${left}
+bind up:ctrl;cmd;alt     ${top}
+bind down:ctrl;cmd;alt   ${bottom}
+bind space:ctrl;cmd;alt  push up bar-resize:screenSizeY
 
 # Nudge Bindings
 # bind right:shift;alt nudge +10% +0
