@@ -59,3 +59,7 @@
 
 [mergetool]
 	keepBackup = true
+
+[git-up "bundler"]
+	check = true
+	autoinstall = true
