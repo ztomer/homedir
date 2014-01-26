@@ -6,6 +6,9 @@
 export EDITOR="/usr/bin/env subl"
 export GIT_EDITOR='/usr/bin/env subl -w -n'
 
+# Additional aliases
+alias pg="postgres -D /usr/local/var/postgres"
+
 # Eh.
 # export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 
