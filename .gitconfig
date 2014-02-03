@@ -56,6 +56,7 @@
   dc = diff --cached
 	lol = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   ls = ls-files
+	springcleaning = for-each-ref --sort=-committerdate --format='%(refname:short) %(committerdate:short)'
 
 [mergetool]
 	keepBackup = true
