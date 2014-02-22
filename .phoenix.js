@@ -37,14 +37,14 @@ api.bind('right', mash, function() {
 });
 
 api.bind('1', mash, function() {
-  App.byTitle("Sublime Text").firstWindow().toGrid(0, 0, 0.5, 0.7).focusWindow();
-  App.byTitle("Terminal").firstWindow().toGrid(0, 0.7, 0.5, 0.3);
   App.byTitle("Google Chrome").firstWindow().toRightHalf();
+  App.byTitle("Terminal").firstWindow().toGrid(0, 0.7, 0.5, 0.3);
+  App.byTitle("Sublime Text").firstWindow().toGrid(0, 0, 0.5, 0.7);
 });
 
 api.bind('2', mash, function() {
   App.byTitle("Terminal").firstWindow().toRightHalf();
-  App.byTitle("Sublime Text").firstWindow().toLeftHalf().focusWindow();
+  App.byTitle("Sublime Text").firstWindow().toLeftHalf();
 });
 
 
@@ -60,6 +60,8 @@ Window.prototype.toGrid = function(x, y, width, height) {
     width:  Math.round(width * screen.width)   - 2*padding,
     height: Math.round(height * screen.height) - 2*padding
   });
+
+  this.focusWindow();
 
   return this;
 }
@@ -90,6 +92,7 @@ App.byTitle = function(title) {
   for (i = 0; i < apps.length; i++) {
     var app = apps[i];
     if (app.title() == title) {
+      app.show();
       return app;
     }
   }
