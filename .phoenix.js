@@ -37,12 +37,14 @@ api.bind('right', mash, function() {
 });
 
 api.bind('1', mash, function() {
+  api.alert("Layout 1", 0.5);
   App.byTitle("Google Chrome").firstWindow().toRightHalf();
   App.byTitle("Terminal").firstWindow().toGrid(0, 0.7, 0.5, 0.3);
   App.byTitle("Sublime Text").firstWindow().toGrid(0, 0, 0.5, 0.7);
 });
 
 api.bind('2', mash, function() {
+  api.alert("Layout 2", 0.5);
   App.byTitle("Terminal").firstWindow().toRightHalf();
   App.byTitle("Sublime Text").firstWindow().toLeftHalf();
 });
