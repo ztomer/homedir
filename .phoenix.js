@@ -97,16 +97,11 @@ Window.prototype.toRightHalf = function() {
 }
 
 Window.prototype.rememberFrame = function() {
-  lastFrames[this.title()] = {
-    x: this.frame().x,
-    y: this.frame().y,
-    width: this.frame().width,
-    height: this.frame().height
-  }
+  lastFrames[this] = this.frame();
 }
 
 Window.prototype.toLastFrame = function() {
-  var lastFrame = lastFrames[this.title()];
+  var lastFrame = lastFrames[this];
   if (lastFrame) {
     this.rememberFrame();
     this.setFrame(lastFrame);
