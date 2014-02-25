@@ -36,6 +36,10 @@ api.bind('right', mash, function() {
   Window.focusedWindow().toRightHalf();
 });
 
+api.bind('escape', mash, function() {
+  Window.focusedWindow().toLastFrame();
+});
+
 api.bind('1', mash, function() {
   api.alert("Layout 1", 0.5);
   App.byTitle("Google Chrome").firstWindow().toRightHalf();
@@ -53,8 +57,12 @@ api.bind('2', mash, function() {
 // Let's extend the Phoenix classes a little.
 //
 
+var lastFrames = {};
+
 Window.prototype.toGrid = function(x, y, width, height) {
   var screen = this.screen().frameWithoutDockOrMenu();
+
+  this.rememberFrame();
 
   this.setFrame({
     x:      Math.round(x * screen.width)       + padding    + screen.x,
@@ -86,6 +94,24 @@ Window.prototype.toLeftHalf = function() {
 
 Window.prototype.toRightHalf = function() {
   return this.toGrid(0.5, 0, 0.5, 1);
+}
+
+Window.prototype.rememberFrame = function() {
+  lastFrames[this.title()] = {
+    x: this.frame().x,
+    y: this.frame().y,
+    width: this.frame().width,
+    height: this.frame().height
+  }
+}
+
+Window.prototype.toLastFrame = function() {
+  var lastFrame = lastFrames[this.title()];
+  if (lastFrame) {
+    this.rememberFrame();
+    this.setFrame(lastFrame);
+  }
+  return this;
 }
 
 App.byTitle = function(title) {
