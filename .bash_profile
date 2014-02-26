@@ -36,6 +36,7 @@ unset MAILCHECK
 alias be="bundle exec"
 alias ta="tmux attach-session"
 alias fs="foreman start"
+alias ts="tig status"
 
 # Run OS specific profile
 FILENAME=~/.bash_profile-$(uname)
