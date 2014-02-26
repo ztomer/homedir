@@ -1,126 +1,264 @@
-// This is my configuration for Phoenix <https://github.com/sdegutis/Phoenix>, an awesome
-// and super-lightweight OS X window manager that can be configured and scripted through
-// the insanity that is Javascript. Heavily recommended. :)
-//
-// With my admittedly limited Javascript skills, I'm extending the built-in Phoenix classes
-// a little to allow for slightly more expressive window configuration (most importantly,
-// by being able to pass screen ratios instead of pixel rects, and controlling specific
-// apps just a little bit easier.)
-//
-// Feedback/forks/improvements highly appreciated!
-//
-// -- hendrik@mans.de
-//    twitter.com/hmans
-//
+// HELPERS
+// save as .phoenix.js in the home folder
 
-var mash = ["cmd", "alt", "ctrl"];
-var padding = 4;
-
-api.bind('space', mash, function() {
-  Window.focusedWindow().toFullScreen();
-});
-
-api.bind('up', mash, function() {
-  Window.focusedWindow().toTopHalf();
-});
-
-api.bind('down', mash, function() {
-  Window.focusedWindow().toBottomHalf();
-});
-
-api.bind('left', mash, function() {
-  Window.focusedWindow().toLeftHalf();
-});
-
-api.bind('right', mash, function() {
-  Window.focusedWindow().toRightHalf();
-});
-
-api.bind('escape', mash, function() {
-  Window.focusedWindow().toLastFrame();
-});
-
-api.bind('1', mash, function() {
-  api.alert("Layout 1", 0.5);
-  App.byTitle("Google Chrome").firstWindow().toRightHalf();
-  App.byTitle("Terminal").firstWindow().toGrid(0, 0.7, 0.5, 0.3);
-  App.byTitle("Sublime Text").firstWindow().toGrid(0, 0, 0.5, 0.7);
-});
-
-api.bind('2', mash, function() {
-  api.alert("Layout 2", 0.5);
-  App.byTitle("Terminal").firstWindow().toRightHalf();
-  App.byTitle("Sublime Text").firstWindow().toLeftHalf();
-});
-
-
-// Let's extend the Phoenix classes a little.
-//
-
-var lastFrames = {};
-
-Window.prototype.toGrid = function(x, y, width, height) {
-  var screen = this.screen().frameWithoutDockOrMenu();
-
-  this.rememberFrame();
-
-  this.setFrame({
-    x:      Math.round(x * screen.width)       + padding    + screen.x,
-    y:      Math.round(y * screen.height)      + padding    + screen.y,
-    width:  Math.round(width * screen.width)   - 2*padding,
-    height: Math.round(height * screen.height) - 2*padding
-  });
-
-  this.focusWindow();
-
-  return this;
-}
-
-Window.prototype.toFullScreen = function() {
-  return this.toGrid(0, 0, 1, 1);
-}
-
-Window.prototype.toTopHalf = function() {
-  return this.toGrid(0, 0, 1, 0.5);
-}
-
-Window.prototype.toBottomHalf = function() {
-  return this.toGrid(0, 0.5, 1, 0.5);
-}
-
-Window.prototype.toLeftHalf = function() {
-  return this.toGrid(0, 0, 0.5, 1);
-}
-
-Window.prototype.toRightHalf = function() {
-  return this.toGrid(0.5, 0, 0.5, 1);
-}
-
-Window.prototype.rememberFrame = function() {
-  lastFrames[this] = this.frame();
-}
-
-Window.prototype.toLastFrame = function() {
-  var lastFrame = lastFrames[this];
-  if (lastFrame) {
-    this.rememberFrame();
-    this.setFrame(lastFrame);
-  }
-  return this;
-}
-
-App.byTitle = function(title) {
-  var apps = this.runningApps();
-
-  for (i = 0; i < apps.length; i++) {
-    var app = apps[i];
-    if (app.title() == title) {
-      app.show();
-      return app;
-    }
+ 
+// Sometimes it's easier to work with edges instead of point + size
+// {x, y, height, width} => {top, bottom, left right}
+function frameToRect(frame) {
+  return {
+    left: frame.x,
+    right: frame.x + frame.width,
+    top: frame.y,
+    bottom: frame.y + frame.height
   }
 }
-
-App.prototype.firstWindow = function() {
-  return this.visibleWindows()[0];
+ 
+// {top, bottom, left right} => {x, y, height, width}
+function rectToFrame(rect) {
+  return {
+    x: rect.left,
+    y: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top
+  }
 }
+ 
+// Cycle args for the function, if called repeatedly
+// cycleCalls(fn, [ [args1...], [args2...], ... ])
+var lastCall = null
+function cycleCalls(fn, argsList) {
+  var argIndex = 0, identifier = {}
+  return function () {
+    if (lastCall !== identifier || ++argIndex >= argsList.length) argIndex = 0
+    lastCall = identifier
+    fn.apply(this, argsList[argIndex])
+  }
+}
+ 
+ 
+// ACTIONS
+ 
+// toAnything(a,b). Sets the focusWindow size to screensize * a/b
+function toLeft(fillCols, maxCols) {
+  var win = Window.focusedWindow()
+  var rect = frameToRect(win.frame())
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+
+  rect.left = 0
+  rect.right = screenFrame.width / maxCols * fillCols
+  rect.top = 0
+  rect.bottom = screenFrame.height
+
+  win.setFrame(rectToFrame(rect), win.screen())
+}
+
+function toTopLeft(fillCols, maxCols) {
+  // Done
+  var win = Window.focusedWindow()
+  
+  var winFrame = win.frame()
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+
+  var rect = frameToRect(winFrame)
+  rect.left = 0
+  rect.right = screenFrame.width / maxCols * fillCols
+
+  rect.top = 0
+  rect.bottom = screenFrame.height / 2
+  
+  winFrame = rectToFrame(rect)
+
+  win.setFrame(winFrame, win.screen())
+}
+
+function toBottomLeft(fillCols, maxCols) {
+  // DONE
+  var win = Window.focusedWindow()
+  var winFrame = win.frame()
+
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+
+  var rect = frameToRect(winFrame)
+  rect.left = 0
+  rect.right = screenFrame.width / maxCols * fillCols
+
+  rect.top = screenFrame.height / 2
+  rect.bottom = screenFrame.height
+
+  winFrame = rectToFrame(rect)
+
+  win.setFrame(winFrame, win.screen())
+}
+ 
+function toRight(fillCols, maxCols) {
+  var win = Window.focusedWindow()
+  var rect = frameToRect(win.frame())
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
+  rect.right = screenFrame.width
+  rect.top = 0
+  rect.bottom = screenFrame.height
+  win.setFrame(rectToFrame(rect), win.screen())
+}
+
+function toTopRight(fillCols, maxCols) {
+  // DONE
+  var win = Window.focusedWindow()
+  var winFrame = win.frame()
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  var targetHeight = screenFrame.height / 2 // hardcoded to half height
+
+  var rect = frameToRect(winFrame)
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
+  rect.right = screenFrame.width
+
+  rect.top = 0
+  rect.bottom = screenFrame.height / 2
+
+  winFrame = rectToFrame(rect)
+
+  win.setFrame(winFrame, win.screen())
+}
+
+function toBottomRight(fillCols, maxCols) {
+  // DONE
+  var win = Window.focusedWindow()
+  var winFrame = win.frame()
+
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  var targetHeight = screenFrame.height / 2 // hardcoded to half height
+
+  var rect = frameToRect(winFrame)
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
+  rect.right = screenFrame.width
+  rect.top = screenFrame.height / 2
+  rect.bottom = screenFrame.height
+  winFrame = rectToFrame(rect)
+ 
+  win.setFrame(winFrame, win.screen())
+}
+ 
+function toTop(fillRows, maxRows) {
+  var win = Window.focusedWindow()
+  var winFrame = win.frame()
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  var targetHeight = screenFrame.height / maxRows * fillRows
+  winFrame.y = screenFrame.y
+  winFrame.height = targetHeight
+  winFrame.x = screenFrame.x
+  winFrame.width = screenFrame.width
+  win.setFrame(winFrame, win.screen())
+}
+ 
+function toBottom(fillRows, maxRows) {
+  var win = Window.focusedWindow()
+  var winFrame = win.frame()
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  var targetHeight = screenFrame.height / maxRows * fillRows
+  winFrame.y = screenFrame.y + screenFrame.height - targetHeight
+  winFrame.height = targetHeight
+
+  winFrame.x = screenFrame.x
+  winFrame.width = screenFrame.width
+
+  win.setFrame(winFrame, win.screen())
+}
+
+function toMiddle(fillRows, maxCols) {
+  // DONE 
+  var win = Window.focusedWindow()
+  var rect = frameToRect(win.frame())
+  var screenFrame = win.screen().frameWithoutDockOrMenu()
+  rect.left = screenFrame.width / maxCols * fillRows
+  rect.right = screenFrame.width - screenFrame.width / maxCols * fillRows
+  
+  rect.top = 0
+  rect.bottom = screenFrame.height
+  win.setFrame(rectToFrame(rect), win.screen())
+}
+
+ 
+// BINDS
+var opts = ["ctrl", "alt"]
+api.bind('h', opts, cycleCalls(
+  toLeft,
+  [
+    [1,2],
+    [1,3],
+    [2,3]
+  ]
+))
+
+api.bind('y', opts, cycleCalls(
+  toTopLeft,
+  [
+    [1,2],
+    [1,3],
+    [2,3]
+  ]
+))
+
+api.bind('n', opts, cycleCalls(
+  toBottomLeft,
+  [
+    [1,2],
+    [1,3],
+    [2,3]
+  ]
+))
+
+api.bind('k', opts, cycleCalls(
+  toRight,
+  [
+    [1,2],
+    [1,3],
+    [2,3]
+  ]
+))
+
+api.bind('i', opts, cycleCalls(
+  toTopRight,
+  [
+    [1,2],
+    [1,3],
+    [2,3]
+  ]
+))
+
+api.bind(',', opts, cycleCalls(
+  toBottomRight,
+  [
+    [1,2],
+    [1,3],
+    [2,3]
+  ]
+))
+
+api.bind('u', opts, cycleCalls(
+  toTop,
+  [
+    [1,2],
+    [1,1],
+    [2,3]
+  ]
+))
+
+api.bind('m', opts, cycleCalls(
+  toBottom,
+  [
+    [1,2],
+    [1,1],
+    [1,3]
+  ]
+))
+
+api.bind('j', opts, cycleCalls(
+  toMiddle,
+  [
+    [2,6],
+    [1,6],
+    [0,1]
+  ]
+))
