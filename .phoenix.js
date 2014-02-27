@@ -1,7 +1,6 @@
 // HELPERS
 // save as .phoenix.js in the home folder
-// V2:
-// fixed middle top, bottom adjustments
+
  
 // Sometimes it's easier to work with edges instead of point + size
 // {x, y, height, width} => {top, bottom, left right}
@@ -84,12 +83,9 @@ function toBottomLeft(fillCols, maxCols) {
   rect.right = screenFrame.width / maxCols * fillCols
 
   rect.top = screenFrame.height / 2
-  
+  rect.bottom = screenFrame.height + 25  
 
-  winFrame = rectToFrame(rect) 
-  winFrame.bottom = winFrame.height
-
-  win.setFrame(winFrame, win.screen())
+  win.setFrame(rectToFrame(rect) , win.screen())
 }
  
 function toRight(fillCols, maxCols) {
@@ -136,11 +132,9 @@ function toBottomRight(fillCols, maxCols) {
   rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
   rect.right = screenFrame.width
   rect.top = screenFrame.height / 2
-  winFrame = rectToFrame(rect)
-  winFrame.bottom = winFrame.height
-
+  rect.bottom = screenFrame.height + 25
  
-  win.setFrame(winFrame, win.screen())
+  win.setFrame(rectToFrame(rect), win.screen())
 }
  
 function toTop(fillRows, maxRows) {
@@ -164,10 +158,10 @@ function toBottom(fillRows, maxRows) {
   rect.left = screenFrame.width / maxRows * fillRows
   rect.right = screenFrame.width - screenFrame.width / maxRows * fillRows
   
-  rect.top = screenFrame.height /2
-  winFrame = rectToFrame(rect)
-  winFrame.bottom = winFrame.height
-  win.setFrame(winFrame, win.screen())
+  rect.top = screenFrame.height / 2
+  rect.bottom = screenFrame.height + 25 //screenFrame.height
+  
+  win.setFrame(rectToFrame(rect), win.screen())
 }
 
 function toMiddle(fillRows, maxCols) {
