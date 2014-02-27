@@ -1,6 +1,7 @@
 // HELPERS
 // save as .phoenix.js in the home folder
-
+// V2:
+// fixed middle top, bottom adjustments
  
 // Sometimes it's easier to work with edges instead of point + size
 // {x, y, height, width} => {top, bottom, left right}
@@ -83,9 +84,10 @@ function toBottomLeft(fillCols, maxCols) {
   rect.right = screenFrame.width / maxCols * fillCols
 
   rect.top = screenFrame.height / 2
-  rect.bottom = screenFrame.height
+  
 
-  winFrame = rectToFrame(rect)
+  winFrame = rectToFrame(rect) 
+  winFrame.bottom = winFrame.height
 
   win.setFrame(winFrame, win.screen())
 }
@@ -134,35 +136,37 @@ function toBottomRight(fillCols, maxCols) {
   rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
   rect.right = screenFrame.width
   rect.top = screenFrame.height / 2
-  rect.bottom = screenFrame.height
   winFrame = rectToFrame(rect)
+  winFrame.bottom = winFrame.height
+
  
   win.setFrame(winFrame, win.screen())
 }
  
 function toTop(fillRows, maxRows) {
+  //DONE 
   var win = Window.focusedWindow()
-  var winFrame = win.frame()
+  var rect = frameToRect(win.frame())
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  var targetHeight = screenFrame.height / maxRows * fillRows
-  winFrame.y = screenFrame.y
-  winFrame.height = targetHeight
-  winFrame.x = screenFrame.x
-  winFrame.width = screenFrame.width
-  win.setFrame(winFrame, win.screen())
+  rect.left = screenFrame.width / maxRows * fillRows
+  rect.right = screenFrame.width - screenFrame.width / maxRows * fillRows
+  
+  rect.top = 0
+  rect.bottom = screenFrame.height / 2
+  win.setFrame(rectToFrame(rect), win.screen())
 }
  
 function toBottom(fillRows, maxRows) {
+  // DONE 
   var win = Window.focusedWindow()
-  var winFrame = win.frame()
+  var rect = frameToRect(win.frame())
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  var targetHeight = screenFrame.height / maxRows * fillRows
-  winFrame.y = screenFrame.y + screenFrame.height - targetHeight
-  winFrame.height = targetHeight
-
-  winFrame.x = screenFrame.x
-  winFrame.width = screenFrame.width
-
+  rect.left = screenFrame.width / maxRows * fillRows
+  rect.right = screenFrame.width - screenFrame.width / maxRows * fillRows
+  
+  rect.top = screenFrame.height /2
+  winFrame = rectToFrame(rect)
+  winFrame.bottom = winFrame.height
   win.setFrame(winFrame, win.screen())
 }
 
@@ -239,18 +243,18 @@ api.bind(',', opts, cycleCalls(
 api.bind('u', opts, cycleCalls(
   toTop,
   [
-    [1,2],
-    [1,1],
-    [2,3]
+    [2,6],
+    [1,6],
+    [0,1]
   ]
 ))
 
 api.bind('m', opts, cycleCalls(
   toBottom,
   [
-    [1,2],
-    [1,1],
-    [1,3]
+    [2,6],
+    [1,6],
+    [0,1]
   ]
 ))
 
