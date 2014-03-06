@@ -145,7 +145,7 @@ function toTop(x_ratio) {
   rect.right = screenFrame.width * (x_ratio)
   
   rect.top = + BORDER_OFFSET
-  rect.bottom = screenFrame.height + BORDER_OFFSET
+  rect.bottom = screenFrame.height * 0.5 + BORDER_OFFSET
   win.setFrame(rectToFrame(rect), win.screen())
 }
  
