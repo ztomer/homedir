@@ -4,6 +4,9 @@
  
 // Sometimes it's easier to work with edges instead of point + size
 // {x, y, height, width} => {top, bottom, left right}
+
+var BORDER_OFFSET = 20;
+
 function frameToRect(frame) {
   return {
     left: frame.x,
@@ -39,20 +42,20 @@ function cycleCalls(fn, argsList) {
 // ACTIONS
  
 // toAnything(a,b). Sets the focusWindow size to screensize * a/b
-function toLeft(fillCols, maxCols) {
+function toLeft(x_ratio) {
   var win = Window.focusedWindow()
   var rect = frameToRect(win.frame())
   var screenFrame = win.screen().frameWithoutDockOrMenu()
 
   rect.left = 0
-  rect.right = screenFrame.width / maxCols * fillCols
-  rect.top = 0
-  rect.bottom = screenFrame.height
+  rect.right = screenFrame.width * x_ratio
+  rect.top = 0 + BORDER_OFFSET
+  rect.bottom = screenFrame.height + BORDER_OFFSET
 
   win.setFrame(rectToFrame(rect), win.screen())
 }
 
-function toTopLeft(fillCols, maxCols) {
+function toTopLeft(x_ratio) {
   // Done
   var win = Window.focusedWindow()
   
@@ -61,116 +64,112 @@ function toTopLeft(fillCols, maxCols) {
 
   var rect = frameToRect(winFrame)
   rect.left = 0
-  rect.right = screenFrame.width / maxCols * fillCols
+  rect.right = screenFrame.width * x_ratio
 
-  rect.top = 0
-  rect.bottom = screenFrame.height / 2
+  rect.top = 0 + BORDER_OFFSET
+  rect.bottom = screenFrame.height * 0.5 + BORDER_OFFSET
   
   winFrame = rectToFrame(rect)
 
   win.setFrame(winFrame, win.screen())
 }
 
-function toBottomLeft(fillCols, maxCols) {
+function toBottomLeft(x_ratio) {
   // DONE
   var win = Window.focusedWindow()
   var winFrame = win.frame()
 
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-
+  
   var rect = frameToRect(winFrame)
   rect.left = 0
-  rect.right = screenFrame.width / maxCols * fillCols
+  rect.right = screenFrame.width * x_ratio
 
-  rect.top = screenFrame.height / 2
-  rect.bottom = screenFrame.height + 25  
+  rect.top = screenFrame.height * 0.5 + BORDER_OFFSET
+  rect.bottom = screenFrame.height  + BORDER_OFFSET  
 
   win.setFrame(rectToFrame(rect) , win.screen())
 }
  
-function toRight(fillCols, maxCols) {
+function toRight(x_ratio) {
   var win = Window.focusedWindow()
   var rect = frameToRect(win.frame())
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
+  rect.left = screenFrame.width - screenFrame.width * x_ratio
   rect.right = screenFrame.width
-  rect.top = 0
-  rect.bottom = screenFrame.height
+  rect.top = 0 + BORDER_OFFSET
+  rect.bottom = screenFrame.height + BORDER_OFFSET
   win.setFrame(rectToFrame(rect), win.screen())
 }
 
-function toTopRight(fillCols, maxCols) {
+function toTopRight(x_ratio) {
   // DONE
   var win = Window.focusedWindow()
   var winFrame = win.frame()
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  var targetHeight = screenFrame.height / 2 // hardcoded to half height
 
   var rect = frameToRect(winFrame)
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
+  rect.left = screenFrame.width - screenFrame.width * x_ratio
   rect.right = screenFrame.width
 
-  rect.top = 0
-  rect.bottom = screenFrame.height / 2
+  rect.top = 0 + BORDER_OFFSET
+  rect.bottom = screenFrame.height * 0.5 + BORDER_OFFSET
 
   winFrame = rectToFrame(rect)
 
   win.setFrame(winFrame, win.screen())
 }
 
-function toBottomRight(fillCols, maxCols) {
+function toBottomRight(x_ratio) {
   // DONE
   var win = Window.focusedWindow()
   var winFrame = win.frame()
-
-  var screenFrame = win.screen().frameWithoutDockOrMenu()
-  var targetHeight = screenFrame.height / 2 // hardcoded to half height
-
+  
   var rect = frameToRect(winFrame)
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  rect.left = screenFrame.width - screenFrame.width / maxCols * fillCols
-  rect.right = screenFrame.width
-  rect.top = screenFrame.height / 2
-  rect.bottom = screenFrame.height + 25
+  rect.left = screenFrame.width * (1 - x_ratio)
+  rect.right = screenFrame.width 
+  rect.top = screenFrame.height * 0.5 + BORDER_OFFSET
+  rect.bottom = screenFrame.height + BORDER_OFFSET
  
   win.setFrame(rectToFrame(rect), win.screen())
 }
  
-function toTop(fillRows, maxRows) {
+function toTop(x_ratio) {
   //DONE 
   var win = Window.focusedWindow()
   var rect = frameToRect(win.frame())
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  rect.left = screenFrame.width / maxRows * fillRows
-  rect.right = screenFrame.width - screenFrame.width / maxRows * fillRows
+  rect.left = screenFrame.width * (1 - x_ratio)
+  rect.right = screenFrame.width * (x_ratio)
   
-  rect.top = 0
-  rect.bottom = screenFrame.height / 2
+  rect.top = + BORDER_OFFSET
+  rect.bottom = screenFrame.height + BORDER_OFFSET
   win.setFrame(rectToFrame(rect), win.screen())
 }
  
-function toBottom(fillRows, maxRows) {
+function toBottom(x_ratio) {
   // DONE 
   var win = Window.focusedWindow()
   var rect = frameToRect(win.frame())
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  rect.left = screenFrame.width / maxRows * fillRows
-  rect.right = screenFrame.width - screenFrame.width / maxRows * fillRows
+  rect.left = screenFrame.width * (1 - x_ratio)
+  rect.right = screenFrame.width * (x_ratio)
   
-  rect.top = screenFrame.height / 2
-  rect.bottom = screenFrame.height + 25 //screenFrame.height
+  rect.top = screenFrame.height * 0.5 + BORDER_OFFSET
+  rect.bottom = screenFrame.height + BORDER_OFFSET
   
   win.setFrame(rectToFrame(rect), win.screen())
 }
 
-function toMiddle(fillRows, maxCols) {
+function toMiddle(x_ratio) {
   // DONE 
   var win = Window.focusedWindow()
   var rect = frameToRect(win.frame())
   var screenFrame = win.screen().frameWithoutDockOrMenu()
-  rect.left = screenFrame.width / maxCols * fillRows
-  rect.right = screenFrame.width - screenFrame.width / maxCols * fillRows
+  rect.left = screenFrame.width * (1 - x_ratio)
+  rect.right = screenFrame.width * (x_ratio)
   
   rect.top = 0
   rect.bottom = screenFrame.height
@@ -183,80 +182,80 @@ var opts = ["ctrl", "alt"]
 api.bind('h', opts, cycleCalls(
   toLeft,
   [
-    [1,2],
-    [1,3],
-    [2,3]
+    [0.5],
+    [0.333333],
+    [0.666667]
   ]
 ))
 
 api.bind('y', opts, cycleCalls(
   toTopLeft,
   [
-    [1,2],
-    [1,3],
-    [2,3]
+    [0.5],
+    [0.333333],
+    [0.666667]
   ]
 ))
 
 api.bind('n', opts, cycleCalls(
   toBottomLeft,
   [
-    [1,2],
-    [1,3],
-    [2,3]
+    [0.5],
+    [0.333333],
+    [0.666667]
   ]
 ))
 
 api.bind('k', opts, cycleCalls(
   toRight,
   [
-    [1,2],
-    [1,3],
-    [2,3]
+    [0.5],
+    [0.333333],
+    [0.666667]
   ]
 ))
 
 api.bind('i', opts, cycleCalls(
   toTopRight,
   [
-    [1,2],
-    [1,3],
-    [2,3]
+    [0.5],
+    [0.333333],
+    [0.666667]
   ]
 ))
 
 api.bind(',', opts, cycleCalls(
   toBottomRight,
-  [
-    [1,2],
-    [1,3],
-    [2,3]
+  [  
+    [0.5],
+    [0.333333],
+    [0.666667]
   ]
 ))
 
 api.bind('u', opts, cycleCalls(
   toTop,
   [
-    [2,6],
-    [1,6],
-    [0,1]
+    [0.666667],
+    [1-0.166667],
+    [1]
   ]
 ))
 
 api.bind('m', opts, cycleCalls(
   toBottom,
   [
-    [2,6],
-    [1,6],
-    [0,1]
+    [0.666667],
+    [1-0.166667],
+    [1]
   ]
 ))
 
 api.bind('j', opts, cycleCalls(
   toMiddle,
   [
-    [2,6],
-    [1,6],
-    [0,1]
+    [0.666667],
+    [1-0.166667],
+    [1]
   ]
 ))
