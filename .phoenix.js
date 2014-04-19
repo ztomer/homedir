@@ -1,12 +1,6 @@
 // HELPERS
 // save as .phoenix.js in the home folder
 
- 
-// Sometimes it's easier to work with edges instead of point + size
-// {x, y, height, width} => {top, bottom, left right}
-
-var BORDER_OFFSET = 20;
-
 // Cycle args for the function, if called repeatedly
 // cycleCalls(fn, [ [args1...], [args2...], ... ])
 var lastCall = null
